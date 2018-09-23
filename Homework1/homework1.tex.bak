@@ -33,4 +33,17 @@ so $\exists c_1>0,c_2>0,n_0>0$ for that $\forall n \ge n_0,\forall c>0$,$
 let c = $\frac{c_1}{2}$, so $c_1g(n)\le f(n)<cg(n)=\frac{c_1}{2}g(n), c_1 < 0$.\\
 This is a contradiction, thus $\Theta(g(n))\cap o(g(n))=\emptyset$.
 \section{Prove $\Theta(g(n))\cup o(g(n))\neq O(g(n))$}
+Let $
+f(n)=\left\{
+\begin{aligned}
+g(n) \ when\ n\ is\ even  \\
+0  \qquad \qquad otherwise\\
+\end{aligned}\right.$, 
+$\exists c=1, n_0>0, s.t. \forall n\ge n_0,0\le f(n)\le cg(n)$,so $f(n)\in O(g(n))$.\\
+If $0<c<1$ and n is even number, $f(n)>cg(n)$, so $f(n)\notin o(g(n))$.\\
+If n is not even number, f(n)=0, there is not a $c_1>0$ so that $0\le c_1g(n) \le f(n)$, so $f(n)\notin \Theta(g(n))$.\\
+Thus $f(n)\notin \Theta(g(n))\cup o(g(n))$.
+Thus $\Theta(g(n))\cup o(g(n))\neq O(g(n))$.
+\section{Prove $\Theta(g(n))\cup o(g(n))\neq O(g(n))$}
+
 \end{document}

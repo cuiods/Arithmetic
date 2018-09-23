@@ -44,4 +44,27 @@ If $0<c<1$ and n is even number, $f(n)>cg(n)$, so $f(n)\notin o(g(n))$.\\
 If n is not even number, f(n)=0, there is not a $c_1>0$ so that $0\le c_1g(n) \le f(n)$, so $f(n)\notin \Theta(g(n))$.\\
 Thus $f(n)\notin \Theta(g(n))\cup o(g(n))$.
 Thus $\Theta(g(n))\cup o(g(n))\neq O(g(n))$.
+\section{Prove $max(f(n),g(n))=\Theta(f(n)+g(n))$}
+To show that $max(f(n),g(n))=\Theta(f(n)+g(n))$, we want to find constants $c_1,c_2,n_0>0$ such that $0 \le c_1(f(n)+g(n)) \le max(f(n),g(n)) \le c_2(f(n)+g(n))$ for all $n \ge n_0$.\\
+Note that $max(f(n),g(n)) \le f(n)+g(n)$, we can find $c_2=1$ such that $ max(f(n),g(n)) \le c_2(f(n)+g(n))$.\\
+Assume $f(n)\le g(n)$, and let $c_1=\frac{1}{2}$, we can find $\frac{1}{2}(f(n)+g(n)) \le f(n) \le g(n) = max(f(n),g(n))$.\\
+So when $c_1=\frac{1}{2}, c_2=1$, we can find $n_0>0$ such that $0 \le c_1(f(n)+g(n)) \le max(f(n),g(n)) \le c_2(f(n)+g(n))$ for all $n \ge n_0$.\\
+Thus $max(f(n),g(n))=\Theta(f(n)+g(n))$.
+\section{Solve the recurrence $T(n)=2T(\sqrt{n})+1$}
+Let $m=lgn$, then $T(2^m)=2T(2^\frac{m}{2})+1$.\\
+Let $S(m)=T(2^m)$, then $S(m)=2S(\frac{m}{2})+1$.\\
+According to the master method, $f(m)=1=O(m^{\log _{2}{2-1}})$, so that $S(m)=\Theta(m)$.\\
+Thus $T(n)=T(2^m)=S(m)=\Theta(m)=\Theta(lgn)$.
+\section{Solve the recurrence $nT(n)=(n-2)T(n-1)+2$}
+$T(n)=1$ when $n \ge 2.$\\
+Prove:\\
+1. n=2,2T(2)=2, T(2)=1.\\
+2. Assume T(k)=1,$k>2$, then (k+1)T(k+1)=(k-1)+2, then T(k+1)=1.\\
+Thus $T(n)=1=\Theta(1)$.
+\section{CLRS,pp61,3-3}
 \end{document}
+
+
+
+
+

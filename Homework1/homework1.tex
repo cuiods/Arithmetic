@@ -3,6 +3,8 @@
 \author{Hao Cui}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper,scale=0.8}
 \begin{document}
 \maketitle
 \section{Prove $2n+\Theta(n^2)=\Theta(n^2)$}
@@ -14,7 +16,7 @@ Solve inequations:$
 \begin{aligned}
 c_3n^2 \le c_1n^2 + 2n \\
 c_4n^2 \ge c_2n^2+2n \\
-\end{aligned}\right.$, 
+\end{aligned}\right.$,
 We can find $
 \left\{
 \begin{aligned}
@@ -29,7 +31,7 @@ so $\exists c_1>0,c_2>0,n_0>0$ for that $\forall n \ge n_0,\forall c>0$,$
 \begin{aligned}
 0\le c_1g(n) \le f(n) \le c_2g(n) \\
 0\le f(n) < cg(n) \\
-\end{aligned}\right.$, 
+\end{aligned}\right.$,
 let c = $\frac{c_1}{2}$, so $c_1g(n)\le f(n)<cg(n)=\frac{c_1}{2}g(n), c_1 < 0$.\\
 This is a contradiction, thus $\Theta(g(n))\cap o(g(n))=\emptyset$.
 \section{Prove $\Theta(g(n))\cup o(g(n))\neq O(g(n))$}
@@ -38,7 +40,7 @@ f(n)=\left\{
 \begin{aligned}
 g(n) \ when\ n\ is\ even  \\
 0  \qquad \qquad otherwise\\
-\end{aligned}\right.$, 
+\end{aligned}\right.$,
 $\exists c=1, n_0>0, s.t. \forall n\ge n_0,0\le f(n)\le cg(n)$,so $f(n)\in O(g(n))$.\\
 If $0<c<1$ and n is even number, $f(n)>cg(n)$, so $f(n)\notin o(g(n))$.\\
 If n is not even number, f(n)=0, there is not a $c_1>0$ so that $0\le c_1g(n) \le f(n)$, so $f(n)\notin \Theta(g(n))$.\\
@@ -62,6 +64,42 @@ Prove:\\
 2. Assume T(k)=1,$k>2$, then (k+1)T(k+1)=(k-1)+2, then T(k+1)=1.\\
 Thus $T(n)=1=\Theta(1)$.
 \section{CLRS,pp61,3-3}
+\subsection{Rank the following functions by order of growth}
+Functions on the same line are in the same equivalence class.\\
+\begin{center}
+$2^{2^{n+1}}$\\
+$2^{2^n}$\\
+$(n+1)!$\\
+$n!$\\
+$e^n$\\
+$n\cdot 2^n$\\
+$2^n$\\
+$(\frac{3}{2})^n$\\
+$(lgn)^{lgn},n^{lglgn}$\\
+$(lgn)!$\\
+$n^3$\\
+$n^2,4^{lgn}$\\
+$nlgn,lg(n!)$\\
+$n,2^{lgn}$\\
+$\sqrt{2}^{lgn}$\\
+$2^{\sqrt{2lgn}}$\\
+$lg^2n$\\
+$ln{n}$\\
+$\sqrt{lgn}$\\
+$lnlnn$\\
+$2^{lg^*n}$\\
+$lg^*n,lg^*(lgn)$\\
+$lg(lg^*)n$\\
+$n^{\frac{1}{lgn}},1$
+\end{center}
+\subsection{F(n) is neither $O(g_i(n))$ nor $\Theta(g_i(n))$}
+$$
+f(n)=\left\{
+\begin{aligned}
+2^{2^{2^{n+1}}} \ if\ n\ is\ even  \\
+0  \qquad \ if\ n\ is\ odd\\
+\end{aligned}\right.
+$$
 \end{document}
 
 

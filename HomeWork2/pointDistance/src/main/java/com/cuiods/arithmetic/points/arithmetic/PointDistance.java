@@ -2,10 +2,7 @@ package com.cuiods.arithmetic.points.arithmetic;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class PointDistance {
 
@@ -25,6 +22,17 @@ public class PointDistance {
             case ENUM: return enumDistance();
             case DIVIDE: return divideDistance();
             default: return result;
+        }
+    }
+
+    public double minDistancePointQuick(DistanceMethod method) {
+        if (points.size() <= 1) {
+            return 0;
+        }
+        switch (method) {
+            case ENUM: return enumDistanceQuick();
+            case DIVIDE: return divideDistanceQuick();
+            default: return 0;
         }
     }
 
@@ -50,6 +58,19 @@ public class PointDistance {
         return distanceResult;
     }
 
+    private double enumDistanceQuick() {
+        double minDistance = Double.MAX_VALUE;
+        for (int i = 0; i < points.size(); i++) {
+            for (int j = i + 1; j < points.size(); j++) {
+                double distance = distance(points.get(i), points.get(j));
+                if (distance < minDistance) {
+                    minDistance = distance;
+                }
+            }
+        }
+        return minDistance;
+    }
+
     private DistanceResult divideDistance() {
         long start = System.nanoTime();
         points.sort(xCompare);
@@ -59,32 +80,67 @@ public class PointDistance {
         return result;
     }
 
+    private double divideDistanceQuick() {
+        points.sort(xCompare);
+        return divideDistanceQuick(0, points.size()-1);
+    }
+
+    private double divideDistanceQuick(int start, int end) {
+        double minDistance = Double.MAX_VALUE;
+        if (end - start == 0) return minDistance;
+        if (end - start == 1) return distance(points.get(start),points.get(end));
+
+        int half = (end+start)>>1;
+        double resultLeft = divideDistanceQuick(start, half);
+        double resultRight = divideDistanceQuick(half, end);
+        double minHalf = Math.min(resultLeft, resultRight);
+        minDistance = minHalf;
+
+        List<Point> middlePoints = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            if (Math.abs(points.get(i).x - points.get(half).x) < minHalf)
+                middlePoints.add(points.get(i));
+        }
+
+        double minMiddleDistance = Double.MAX_VALUE;
+        if (middlePoints.size() > 1 ) {
+            middlePoints.sort(yCompare);
+            for (int i = 0; i < middlePoints.size(); i++) {
+                for (int j = i+1; j < middlePoints.size() && j < i+8; j++) {
+                    if (middlePoints.get(j).y-middlePoints.get(i).y>minHalf) break;
+                    double distance = distance(middlePoints.get(i), middlePoints.get(j));
+                    if (distance < minMiddleDistance) {
+                        minMiddleDistance = distance;
+                    }
+                }
+            }
+        }
+
+        if (minDistance > minMiddleDistance)  minDistance = minMiddleDistance;
+        return minDistance;
+    }
+
     private DistanceResult divideDistance(int start, int end) {
         double minDistance = Double.MAX_VALUE;
         List<Pair<Point,Point>> result = new ArrayList<>();
+        if (end - start == 0) {
+            return new DistanceResult(result, minDistance);
+        }
         if (end - start == 1) {
             result.add(new Pair<>(points.get(start),points.get(end)));
             return new DistanceResult(result, distance(points.get(start),points.get(end)));
         }
         //划分左右
-        double half = (end+start)/2.0;
-        int leftHalf = (int) Math.floor(half);
-        int rightHalf = (int) Math.ceil(half);
-        DistanceResult resultLeft = divideDistance(start, leftHalf);
-        DistanceResult resultRight = divideDistance(rightHalf, end);
+        int half = (end+start)>>1;
+        DistanceResult resultLeft = divideDistance(start, half);
+        DistanceResult resultRight = divideDistance(half, end);
 
         //划分中间分区
         double minHalf = Math.min(resultLeft.getMinDistance(), resultRight.getMinDistance());
-        double leftXLine = points.get(leftHalf).x - minHalf;
-        double rightXLine = points.get(rightHalf).x + minHalf;
         List<Point> middlePoints = new ArrayList<>();
-        for (int i = leftHalf; i >=0; i--) {
-            if (points.get(i).x >= leftXLine) middlePoints.add(points.get(i));
-            else break;
-        }
-        for (int i = leftHalf+1; i < points.size(); i++) {
-            if (points.get(i).x <= rightXLine) middlePoints.add(points.get(i));
-            else break;
+        for (int i = start; i < end; i++) {
+            if (Math.abs(points.get(i).x - points.get(half).x) < minHalf)
+                middlePoints.add(points.get(i));
         }
 
         //计算中间分区的距离最小值
@@ -94,6 +150,7 @@ public class PointDistance {
             middlePoints.sort(yCompare);
             for (int i = 0; i < middlePoints.size(); i++) {
                 for (int j = i+1; j < middlePoints.size() && j < i+8; j++) {
+                    if (middlePoints.get(j).y-middlePoints.get(i).y>minHalf) break;
                     double distance = distance(middlePoints.get(i), middlePoints.get(j));
                     if (distance < minMiddleDistance) {
                         middleResult.clear();
@@ -101,7 +158,7 @@ public class PointDistance {
                         minMiddleDistance = distance;
                     } else if (distance == minMiddleDistance) {
                         middleResult.add(new Pair<>(middlePoints.get(i), middlePoints.get(j)));
-                    };
+                    }
                 }
             }
         }
@@ -147,7 +204,7 @@ public class PointDistance {
     }
 
     private double distance(Point a, Point b) {
-        return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+        return Math.sqrt(Math.pow((a.x-b.x),2) + Math.pow((a.y-b.y),2));
     }
 
 }

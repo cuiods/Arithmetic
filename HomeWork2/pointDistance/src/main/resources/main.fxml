@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -123,12 +124,12 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="294.0" layoutY="20.0" text="分组：" textFill="#f8f6f6">
+                              <Label layoutX="294.0" layoutY="20.0" text="递进参数：" textFill="#f8f6f6">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="groupNumField" layoutX="356.0" layoutY="17.0" prefHeight="29.0" prefWidth="125.0">
+                              <TextField fx:id="groupNumField" layoutX="384.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -138,6 +139,11 @@
                                     <Font size="18.0" />
                                  </font>
                               </Button>
+                              <RadioButton fx:id="expChoiceBtn" layoutX="540.0" layoutY="21.0" mnemonicParsing="false" text="指数递进" textFill="#f8f5f5">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </RadioButton>
                            </children></AnchorPane>
                      </top>
                      <center>

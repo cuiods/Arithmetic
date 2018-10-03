@@ -30,45 +30,33 @@ public class MainController implements Initializable {
 
     private ReportModel reportModel = new ReportModel();
 
-    @FXML
-    private Canvas canvas;
+    @FXML private Canvas canvas;
 
-    @FXML
-    private Label canvasPointNum;
+    @FXML private Label canvasPointNum;
 
-    @FXML
-    private Label locationLabel;
+    @FXML private Label locationLabel;
 
-    @FXML
-    private Label timeLabel;
+    @FXML private Label timeLabel;
 
-    @FXML
-    private TextField pointNumField;
+    @FXML private TextField pointNumField;
 
-    @FXML
-    private ListView<String> operationList;
+    @FXML private ListView<String> operationList;
 
-    @FXML
-    private ListView<String> resultList;
+    @FXML private ListView<String> resultList;
 
-    @FXML
-    private ChoiceBox<String> complexityChoice;
+    @FXML private ChoiceBox<String> complexityChoice;
 
-    @FXML
-    private TextField maxPointNumField;
+    @FXML private TextField maxPointNumField;
 
-    @FXML
-    private TextField groupNumField;
+    @FXML private TextField groupNumField;
 
-    @FXML
-    private LineChart<String, Number> lineChart;
+    @FXML private RadioButton expChoiceBtn;
 
-    @FXML
-    private BarChart<String, Number> barChart;
+    @FXML private LineChart<String, Number> lineChart;
 
-    @FXML
-    private TableView<ReportObj> tableView;
+    @FXML private BarChart<String, Number> barChart;
 
+    @FXML private TableView<ReportObj> tableView;
     @FXML private TableColumn<ReportObj, Integer> numColumn;
     @FXML private TableColumn<ReportObj, String> firstColumn;
     @FXML private TableColumn<ReportObj, String> secondColumn;
@@ -113,9 +101,9 @@ public class MainController implements Initializable {
             observableList.add("("+pointPair.getKey().x+","+pointPair.getKey().y+")->("+pointPair.getValue().x
                     +","+pointPair.getValue().y+")");
         }
-        timeLabel.setText(result.getTime()+"");
+        timeLabel.setText(result.getTime()/1000000.0+"ms");
         drawResult(result.getPoints());
-        addOperation("计算最小距离，用时"+result.getTime()+"ms");
+        addOperation("计算最小距离，用时"+result.getTime()/1000000.0+"ms");
     }
 
     @FXML
@@ -143,7 +131,8 @@ public class MainController implements Initializable {
     private void startReportTest() {
         int maxNum = Integer.parseInt(maxPointNumField.getText());
         int step = Integer.parseInt(groupNumField.getText());
-        ReportResult result = reportModel.doReport(maxNum, step);
+        boolean exp = expChoiceBtn.isSelected();
+        ReportResult result = reportModel.doReport(maxNum, step, exp);
         tableView.setItems(result.getReportObjs());
         barChart.setData(result.getSeries());
         lineChart.setData(result.getSeriesBack());

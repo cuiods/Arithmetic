@@ -14,7 +14,7 @@ public class ReportModel {
 
     private PointDistance pointDistance = new PointDistance();
 
-    public ReportResult doReport(int maxNum, int step) {
+    public ReportResult doReport(int maxNum, int step, boolean exp) {
         ObservableList<ReportObj> reportObjs = FXCollections.observableArrayList();
         ObservableList<XYChart.Series<String,Number>> series = FXCollections.observableArrayList();
         XYChart.Series<String,Number> series1 = new XYChart.Series<>();
@@ -30,19 +30,21 @@ public class ReportModel {
         series.add(series2);
         seriesBack.add(seriesBack1);
         seriesBack.add(seriesBack2);
-        for (int i = maxNum; i > 0; i-=step) {
-            List<Point> points = RandomUtil.generateRandomPoints(step, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        for (int i = step; i <= maxNum; ) {
+            List<Point> points = RandomUtil.generateRandomPoints(i, Integer.MAX_VALUE, Integer.MAX_VALUE);
             pointDistance.setPoints(points);
             long time1 = System.nanoTime();
-            pointDistance.minDistancePoint(DistanceMethod.ENUM);
+            pointDistance.minDistancePointQuick(DistanceMethod.ENUM);
             long time2 = System.nanoTime();
-            pointDistance.minDistancePoint(DistanceMethod.DIVIDE);
+            pointDistance.minDistancePointQuick(DistanceMethod.DIVIDE);
             long time3 = System.nanoTime();
-            reportObjs.add(new ReportObj(i, (time2-time1)/1000.0+"ms", (time3-time2)/1000.0+"ms"));
-            series1.getData().add(new XYChart.Data<>(i+"",(time2-time1)/1000.0));
-            series2.getData().add(new XYChart.Data<>(i+"",(time3-time2)/1000.0));
-            seriesBack1.getData().add(new XYChart.Data<>(i+"",(time2-time1)/1000.0));
-            seriesBack2.getData().add(new XYChart.Data<>(i+"",(time3-time2)/1000.0));
+            reportObjs.add(new ReportObj(i, (time2-time1)/1000000.0+"ms", (time3-time2)/1000000.0+"ms"));
+            series1.getData().add(new XYChart.Data<>(i+"",(time2-time1)/1000000.0));
+            series2.getData().add(new XYChart.Data<>(i+"",(time3-time2)/1000000.0));
+            seriesBack1.getData().add(new XYChart.Data<>(i+"",(time2-time1)/1000000.0));
+            seriesBack2.getData().add(new XYChart.Data<>(i+"",(time3-time2)/1000000.0));
+            if (exp) i*=step;
+            else i+=step;
         }
         return new ReportResult(reportObjs, series, seriesBack);
     }

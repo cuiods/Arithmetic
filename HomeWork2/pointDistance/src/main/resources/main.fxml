@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -108,7 +109,7 @@
                      </center></BorderPane>
                </content>
           </Tab>
-          <Tab text="模拟实验">
+          <Tab text="最短距离实验">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <top>
@@ -144,6 +145,16 @@
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
+                              <CheckBox fx:id="reportMethod1" layoutX="665.0" layoutY="19.0" mnemonicParsing="false" selected="true" text="O(n^2)方法" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="reportMethod2" layoutX="806.0" layoutY="20.0" mnemonicParsing="false" selected="true" text="O(nlgn)方法" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </CheckBox>
                            </children></AnchorPane>
                      </top>
                      <center>
@@ -178,6 +189,98 @@
                      </left></BorderPane>
                </content>
           </Tab>
+            <Tab text="fibonacci实验">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <AnchorPane prefHeight="62.0" prefWidth="1366.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="27.0" layoutY="19.0" text="最大N值：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="maxPointNumField1" layoutX="114.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="294.0" layoutY="20.0" text="递进参数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="groupNumField1" layoutX="384.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="1207.0" layoutY="12.0" mnemonicParsing="false" onAction="#startFibonacciTest" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <CheckBox fx:id="fibonacciMethod1" layoutX="548.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="递归方法" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="fibonacciMethod2" layoutX="643.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="线性加法" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="fibonacciMethod3" layoutX="738.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="矩阵乘法" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="fibonacciMethod4" layoutX="830.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="公式法" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <center>
+                        <AnchorPane prefHeight="677.0" prefWidth="829.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <LineChart fx:id="lineChart1" prefHeight="320.0" prefWidth="700.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <BarChart fx:id="barChart1" layoutX="-1.0" layoutY="348.0" prefHeight="320.0" prefWidth="700.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
+                        </AnchorPane>
+                     </center>
+                     <left>
+                        <TableView fx:id="tableView1" prefHeight="677.0" prefWidth="664.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn fx:id="numColumn1" prefWidth="32.0" text="N" />
+                              <TableColumn fx:id="Column1" prefWidth="100.0" text="递归方法" />
+                              <TableColumn fx:id="Column2" prefWidth="100.0" text="线性加法" />
+                              <TableColumn fx:id="Column3" prefWidth="100.0" text="矩阵乘法" />
+                              <TableColumn fx:id="Column4" prefWidth="100.0" text="公式法" />
+                              <TableColumn fx:id="Column5" prefWidth="115.0" text="准确值" />
+                              <TableColumn fx:id="Column6" prefWidth="115.0" text="浮点值" />
+                           </columns>
+                        </TableView>
+                     </left>
+                  </BorderPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>

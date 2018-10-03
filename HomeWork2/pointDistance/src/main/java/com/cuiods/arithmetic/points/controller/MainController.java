@@ -12,7 +12,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -47,19 +46,37 @@ public class MainController implements Initializable {
     @FXML private ChoiceBox<String> complexityChoice;
 
     @FXML private TextField maxPointNumField;
+    @FXML private TextField maxPointNumField1;
 
     @FXML private TextField groupNumField;
+    @FXML private TextField groupNumField1;
 
     @FXML private RadioButton expChoiceBtn;
+    @FXML private CheckBox reportMethod1;
+    @FXML private CheckBox reportMethod2;
+    @FXML private CheckBox fibonacciMethod1;
+    @FXML private CheckBox fibonacciMethod2;
+    @FXML private CheckBox fibonacciMethod3;
+    @FXML private CheckBox fibonacciMethod4;
 
     @FXML private LineChart<String, Number> lineChart;
+    @FXML private LineChart<String, Number> lineChart1;
 
     @FXML private BarChart<String, Number> barChart;
+    @FXML private BarChart<String, Number> barChart1;
 
     @FXML private TableView<ReportObj> tableView;
+    @FXML private TableView<FibonacciObj> tableView1;
     @FXML private TableColumn<ReportObj, Integer> numColumn;
     @FXML private TableColumn<ReportObj, String> firstColumn;
     @FXML private TableColumn<ReportObj, String> secondColumn;
+    @FXML private TableColumn<FibonacciObj, String> numColumn1;
+    @FXML private TableColumn<FibonacciObj, String> Column1;
+    @FXML private TableColumn<FibonacciObj, String> Column2;
+    @FXML private TableColumn<FibonacciObj, String> Column3;
+    @FXML private TableColumn<FibonacciObj, String> Column4;
+    @FXML private TableColumn<FibonacciObj, String> Column5;
+    @FXML private TableColumn<FibonacciObj, String> Column6;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,10 +85,21 @@ public class MainController implements Initializable {
         numColumn.setCellValueFactory(cellData->cellData.getValue().numProperty().asObject());
         firstColumn.setCellValueFactory(cellData->cellData.getValue().firstTimeProperty());
         secondColumn.setCellValueFactory(cellData->cellData.getValue().lastTimeProperty());
+        numColumn1.setCellValueFactory(cellData->cellData.getValue().numProperty());
+        Column1.setCellValueFactory(cellData->cellData.getValue().time1Property());
+        Column2.setCellValueFactory(cellData->cellData.getValue().time2Property());
+        Column3.setCellValueFactory(cellData->cellData.getValue().time3Property());
+        Column4.setCellValueFactory(cellData->cellData.getValue().time4Property());
+        Column5.setCellValueFactory(cellData->cellData.getValue().trueValueProperty());
+        Column6.setCellValueFactory(cellData->cellData.getValue().floatValueProperty());
         lineChart.getXAxis().setLabel("测试点数");
         lineChart.getYAxis().setLabel("运行时间(ms)");
         barChart.getXAxis().setLabel("测试点数");
         barChart.getYAxis().setLabel("运行时间(ms)");
+        lineChart1.getXAxis().setLabel("测试点数");
+        lineChart1.getYAxis().setLabel("运行时间(ms)");
+        barChart1.getXAxis().setLabel("测试点数");
+        barChart1.getYAxis().setLabel("运行时间(ms)");
     }
 
     @FXML
@@ -132,10 +160,21 @@ public class MainController implements Initializable {
         int maxNum = Integer.parseInt(maxPointNumField.getText());
         int step = Integer.parseInt(groupNumField.getText());
         boolean exp = expChoiceBtn.isSelected();
-        ReportResult result = reportModel.doReport(maxNum, step, exp);
+        ReportResult result = reportModel.doReport(maxNum, step, exp, reportMethod1.isSelected(), reportMethod2.isSelected());
         tableView.setItems(result.getReportObjs());
         barChart.setData(result.getSeries());
         lineChart.setData(result.getSeriesBack());
+    }
+
+    @FXML
+    private void startFibonacciTest() {
+        int maxNum = Integer.parseInt(maxPointNumField1.getText());
+        int step = Integer.parseInt(groupNumField1.getText());
+        FibonacciResult result = reportModel.doFibonacciTest(maxNum, step, fibonacciMethod1.isSelected(),
+                fibonacciMethod2.isSelected(), fibonacciMethod3.isSelected(), fibonacciMethod4.isSelected());
+        tableView1.setItems(result.getReportObjs());
+        barChart1.setData(result.getSeries());
+        lineChart1.setData(result.getSeriesBack());
     }
 
     private void drawPoints(List<Point> points) {

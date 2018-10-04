@@ -16,7 +16,14 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -175,6 +182,45 @@ public class MainController implements Initializable {
         tableView1.setItems(result.getReportObjs());
         barChart1.setData(result.getSeries());
         lineChart1.setData(result.getSeriesBack());
+    }
+
+    @FXML
+    private void exportPointToExcel() {
+        exportToExcel(tableView,"PointDistance");
+    }
+
+    @FXML
+    private void exportFibonacciToExcel() {
+        exportToExcel(tableView1,"Fibonacci");
+    }
+
+    private void exportToExcel(TableView<?> table, String name) {
+        Workbook workbook = new HSSFWorkbook();
+        Sheet spreadsheet = workbook.createSheet(name);
+
+        Row row = spreadsheet.createRow(0);
+        for (int j = 0; j < table.getColumns().size(); j++) {
+            row.createCell(j).setCellValue(table.getColumns().get(j).getText());
+        }
+        for (int i = 0; i < table.getItems().size(); i++) {
+            row = spreadsheet.createRow(i + 1);
+            for (int j = 0; j < table.getColumns().size(); j++) {
+                if(table.getColumns().get(j).getCellData(i) != null) {
+                    row.createCell(j).setCellValue(table.getColumns().get(j).getCellData(i).toString());
+                }
+                else {
+                    row.createCell(j).setCellValue("");
+                }
+            }
+        }
+        FileOutputStream fileOut = null;
+        try {
+            fileOut = new FileOutputStream(name+".xls");
+            workbook.write(fileOut);
+            fileOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void drawPoints(List<Point> points) {

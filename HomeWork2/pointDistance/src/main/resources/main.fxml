@@ -135,7 +135,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="1207.0" layoutY="12.0" mnemonicParsing="false" onAction="#startReportTest" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                              <Button layoutX="1140.0" layoutY="12.0" mnemonicParsing="false" onAction="#startReportTest" prefHeight="41.0" prefWidth="99.0" text="开始实验">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -155,6 +155,11 @@
                                     <Font size="18.0" />
                                  </font>
                               </CheckBox>
+                              <Button layoutX="1247.0" layoutY="12.0" onAction="#exportPointToExcel" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
                            </children></AnchorPane>
                      </top>
                      <center>
@@ -215,7 +220,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="1207.0" layoutY="12.0" mnemonicParsing="false" onAction="#startFibonacciTest" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" onAction="#startFibonacciTest" prefHeight="41.0" prefWidth="99.0" text="开始实验">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -240,6 +245,11 @@
                                     <Font size="14.0" />
                                  </font>
                               </CheckBox>
+                              <Button layoutX="1247.0" layoutY="12.0" onAction="#exportFibonacciToExcel" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </top>

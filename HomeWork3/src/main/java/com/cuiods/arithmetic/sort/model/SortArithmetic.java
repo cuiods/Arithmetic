@@ -1,5 +1,7 @@
 package com.cuiods.arithmetic.sort.model;
 
+import com.cuiods.arithmetic.sort.util.SortMethod;
+
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -8,37 +10,38 @@ public class SortArithmetic {
     public void insertionSort(long[] numbers) {
         if (numbers.length < 2) return ;
         int length = numbers.length;
-        for (int i = 1; i < length; i++) {
-            long temp = numbers[i];
-            int j = i-1;
-            for (; j>=0 && (numbers[j] > temp) ;j--) {
-                numbers[j+1] = numbers[j];
-            }
-            numbers[j+1] = temp;
-        }
+        insertionSort(numbers,0,length);
     }
 
     public void shellSort(long[] numbers) {
-        int length = numbers.length, gap = length/2;
-        while (gap > 0) {
-            for (int i = gap; i < length; i++) {
-                for (int j = i; j >= gap; j -= gap) {
-                    if (numbers[j-gap] > numbers[j]) {
-                        swap(numbers, j-gap, j);
-                    } else break;
-                }
-            }
-            gap = gap / 2;
-        }
+        int length = numbers.length;
+        shellSort(numbers, 0, length);
     }
 
     public void quickSort(long[] numbers) {
-        quickSort(numbers,0,numbers.length);
+        quickSort(numbers, 1);
+    }
+
+    public void quickSort(long[] numbers, int endCondition) {
+        quickSort(numbers, endCondition, SortMethod.INSERT);
+    }
+
+    public void quickSort(long[] numbers, int endCondition, SortMethod method) {
+        quickSort(numbers,0,numbers.length, endCondition, method);
     }
 
     public void mergeSort(long[] numbers) {
-        mergeSort(numbers,0,numbers.length);
+        mergeSort(numbers,1);
     }
+
+    public void mergeSort(long[] numbers, int endCondition) {
+        mergeSort(numbers, endCondition, SortMethod.INSERT);
+    }
+
+    public void mergeSort(long[] numbers, int endCondition, SortMethod method) {
+        mergeSort(numbers,0, numbers.length, endCondition, method);
+    }
+
 
     public void radixSort(long[] numbers) {
         radixSort(numbers, 8);
@@ -80,12 +83,20 @@ public class SortArithmetic {
         return resultNum;
     }
 
-    private void mergeSort(long[] numbers, int start, int end) {
+    private void mergeSort(long[] numbers, int start, int end, int endCondition, SortMethod method) {
         if (start < end - 1) {
-            int middle = (start + end) / 2;
-            mergeSort(numbers, start, middle);
-            mergeSort(numbers, middle, end);
-            merge(numbers, start, middle, end);
+            if (start < end - endCondition) {
+                int middle = (start + end) / 2;
+                mergeSort(numbers, start, middle, endCondition, method);
+                mergeSort(numbers, middle, end, endCondition, method);
+                merge(numbers, start, middle, end);
+            } else {
+                switch (method) {
+                    case QUICK: quickSort(numbers, start, end, 1, SortMethod.INSERT);
+                    case SHELL: shellSort(numbers, start, end);
+                    default: insertionSort(numbers, start, end);
+                }
+            }
         }
     }
 
@@ -106,11 +117,30 @@ public class SortArithmetic {
         while (j < l2) numbers[k++] = temp2[j++];
     }
 
-    private void quickSort(long[] numbers, int start, int end) {
+    private void quickSort(long[] numbers, int start, int end, int endCondition, SortMethod method) {
         if (start < end-1) {
-            int index = partition(numbers, start, end);
-            quickSort(numbers, start, index);
-            quickSort(numbers, index+1, end);
+            if (start < end - endCondition) {
+                int index = partition(numbers, start, end);
+                quickSort(numbers, start, index, endCondition, method);
+                quickSort(numbers, index+1, end, endCondition, method);
+            } else {
+                switch (method) {
+                    case MERGE: mergeSort(numbers, start, end, 1, SortMethod.INSERT);
+                    case SHELL: shellSort(numbers, start, end);
+                    default: insertionSort(numbers, start, end);
+                }
+            }
+        }
+    }
+
+    private void insertionSort(long[] numbers, int start, int end) {
+        for (int i = start+1; i < end; i++) {
+            long temp = numbers[i];
+            int j = i-1;
+            for (; j>=start && (numbers[j] > temp) ;j--) {
+                numbers[j+1] = numbers[j];
+            }
+            numbers[j+1] = temp;
         }
     }
 
@@ -130,18 +160,24 @@ public class SortArithmetic {
         return (i+1);
     }
 
+    private void shellSort(long[] numbers, int start, int end) {
+        int length = end-start, gap = length/2;
+        while (gap > 0) {
+            for (int i = start + gap; i < length; i++) {
+                for (int j = i; j >= start + gap; j -= gap) {
+                    if (numbers[j-gap] > numbers[j]) {
+                        swap(numbers, j-gap, j);
+                    } else break;
+                }
+            }
+            gap = gap / 2;
+        }
+    }
+
     private static void swap(long[] numbers, int a, int b) {
         long temp = numbers[a];
         numbers[a] = numbers[b];
         numbers[b] = temp;
-    }
-
-    private String print(int[] numbers) {
-        StringBuilder result = new StringBuilder();
-        result.append("[");
-        for (long num: numbers) result.append(num).append(",");
-        result.append("]");
-        return result.toString();
     }
 
 }

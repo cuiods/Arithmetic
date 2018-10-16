@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+            <Tab text="快速排序实验">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <AnchorPane prefHeight="62.0" prefWidth="1366.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="27.0" layoutY="19.0" text="排序数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="quickSortNum" layoutX="99.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="240.0" layoutY="21.0" text="最大递归终止数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="quickMaxNum" layoutX="384.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <CheckBox fx:id="quickInsert" layoutX="761.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="插入排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="quickShell" layoutX="856.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="希尔排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="quickMerge" layoutX="951.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="归并排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="529.0" layoutY="21.0" text="递进参数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="quickGroupNum" layoutX="613.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <center>
+                        <AnchorPane prefHeight="677.0" prefWidth="829.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <LineChart fx:id="quickLineChart" prefHeight="320.0" prefWidth="815.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <BarChart fx:id="quickBarChart" layoutX="-1.0" layoutY="348.0" prefHeight="320.0" prefWidth="815.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
+                        </AnchorPane>
+                     </center>
+                     <left>
+                        <TableView fx:id="quickTable" prefHeight="677.0" prefWidth="552.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn fx:id="quickCol1" prefWidth="100.0" text="递归终止数" />
+                              <TableColumn fx:id="quickCol2" prefWidth="150.0" text="插入排序" />
+                              <TableColumn fx:id="quickCol3" prefWidth="150.0" text="希尔排序" />
+                              <TableColumn fx:id="quickCol4" prefWidth="150.0" text="归并排序" />
+                           </columns>
+                        </TableView>
+                     </left>
+                  </BorderPane>
+               </content>
+            </Tab>
+            <Tab text="归并排序实验">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <AnchorPane prefHeight="62.0" prefWidth="1366.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="27.0" layoutY="19.0" text="排序数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mergeSortNum" layoutX="99.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="240.0" layoutY="21.0" text="最大递归终止数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mergeMaxNum" layoutX="384.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <CheckBox fx:id="mergeInsert" layoutX="761.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="插入排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="mergeShell" layoutX="856.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="希尔排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="mergeQuick" layoutX="951.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="快速排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="529.0" layoutY="21.0" text="递进参数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mergeGroupNum" layoutX="613.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <center>
+                        <AnchorPane prefHeight="677.0" prefWidth="829.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <LineChart fx:id="mergeLineChart" prefHeight="320.0" prefWidth="815.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <BarChart fx:id="mergeBarChart" layoutX="-1.0" layoutY="348.0" prefHeight="320.0" prefWidth="815.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
+                        </AnchorPane>
+                     </center>
+                     <left>
+                        <TableView fx:id="mergeTable" prefHeight="677.0" prefWidth="552.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn fx:id="mergeCol1" prefWidth="100.0" text="递归终止数" />
+                              <TableColumn fx:id="mergeCol2" prefWidth="150.0" text="插入排序" />
+                              <TableColumn fx:id="mergeCol3" prefWidth="150.0" text="希尔排序" />
+                              <TableColumn fx:id="mergeCol4" prefWidth="150.0" text="归并排序" />
+                           </columns>
+                        </TableView>
+                     </left>
+                  </BorderPane>
+               </content>
+            </Tab>
+            <Tab text="基数排序实验">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <AnchorPane prefHeight="62.0" prefWidth="1366.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="27.0" layoutY="19.0" text="排序数：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="radixSortNum" layoutX="106.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <center>
+                        <AnchorPane prefHeight="677.0" prefWidth="829.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <LineChart fx:id="radixLineChart" prefHeight="320.0" prefWidth="815.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <BarChart fx:id="radixBarChart" layoutX="-1.0" layoutY="348.0" prefHeight="320.0" prefWidth="815.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
+                        </AnchorPane>
+                     </center>
+                     <left>
+                        <TableView fx:id="radixTable" prefHeight="677.0" prefWidth="402.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn fx:id="radixCol1" prefWidth="200.0" text="计数排序比特位数" />
+                              <TableColumn fx:id="radixCol2" prefWidth="200.0" text="使用时间" />
+                           </columns>
+                        </TableView>
+                     </left>
+                  </BorderPane>
+               </content>
+            </Tab>
+            <Tab text="排序对比实验">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <AnchorPane prefHeight="62.0" prefWidth="1366.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="27.0" layoutY="19.0" text="最大N值：" textFill="#f8f6f6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="sortNum" layoutX="114.0" layoutY="18.0" prefHeight="29.0" prefWidth="125.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <CheckBox fx:id="insertSort" layoutX="273.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="插入排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="shellSort" layoutX="368.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="希尔排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="quickSort" layoutX="463.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="快速排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="mergeSort" layoutX="555.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="归并排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <CheckBox fx:id="radixSort" layoutX="646.0" layoutY="23.0" mnemonicParsing="false" selected="true" text="基数排序" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <center>
+                        <AnchorPane prefHeight="677.0" prefWidth="829.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <LineChart fx:id="lineChart12" prefHeight="320.0" prefWidth="750.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <BarChart fx:id="barChart12" layoutX="-1.0" layoutY="348.0" prefHeight="320.0" prefWidth="750.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
+                        </AnchorPane>
+                     </center>
+                     <left>
+                        <TableView fx:id="sortTable" prefHeight="677.0" prefWidth="612.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn fx:id="sortCol1" prefWidth="100.0" text="N" />
+                              <TableColumn fx:id="sortCol2" prefWidth="100.0" text="插入排序" />
+                              <TableColumn fx:id="sortCol3" prefWidth="100.0" text="希尔排序" />
+                              <TableColumn fx:id="sortCol4" prefWidth="100.0" text="快速排序" />
+                              <TableColumn fx:id="sortCol5" prefWidth="100.0" text="归并排序" />
+                              <TableColumn fx:id="sortCol6" prefWidth="110.0" text="基数排序" />
+                           </columns>
+                        </TableView>
+                     </left>
+                  </BorderPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

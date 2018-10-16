@@ -1,5 +1,6 @@
 package com.cuiods.arithmetic.sort.model;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SortArithmetic {
@@ -39,7 +40,45 @@ public class SortArithmetic {
         mergeSort(numbers,0,numbers.length);
     }
 
-    public void radixSort(long[] numbers) {}
+    public void radixSort(long[] numbers) {
+        radixSort(numbers, 8);
+    }
+
+    public void radixSort(long[] numbers, int bitNum) {
+        long[] temp = numbers;
+        for (int i = 0; i < 32+bitNum; i+=bitNum) {
+            temp = countingSort(temp, i, i+ bitNum);
+        }
+        System.arraycopy(temp,0,numbers,0,temp.length);
+    }
+
+    public void originSort(long[] numbers) {
+        Arrays.sort(numbers);
+    }
+
+    private long[] countingSort(long[] numbers, int startBit, int endBit) {
+        int bitLen = endBit - startBit;
+        if (bitLen > 16) return numbers;
+        int maxNum = (int) (Math.pow(2,bitLen));
+        int[] countNum = new int[maxNum];
+        long[] resultNum = new long[numbers.length];
+        long mark = 0;
+        long index = 1 << startBit;
+        for (int i = startBit; i < endBit; i++, index <<= 1)
+            mark = mark | index;
+        for (int i = 0; i < countNum.length; i++)
+            countNum[i] = 0;
+        for (long number : numbers)
+            countNum[(int) ((number & mark) >> startBit)]++;
+        for (int i = 1; i < countNum.length; i++)
+            countNum[i] = countNum[i] + countNum[i-1];
+        for (int i = numbers.length-1; i >= 0; i--) {
+            int markNum = (int) ((numbers[i] & mark) >> startBit);
+            resultNum[countNum[markNum]-1] = numbers[i];
+            countNum[markNum]--;
+        }
+        return resultNum;
+    }
 
     private void mergeSort(long[] numbers, int start, int end) {
         if (start < end - 1) {
@@ -97,7 +136,7 @@ public class SortArithmetic {
         numbers[b] = temp;
     }
 
-    private String print(long[] numbers) {
+    private String print(int[] numbers) {
         StringBuilder result = new StringBuilder();
         result.append("[");
         for (long num: numbers) result.append(num).append(",");

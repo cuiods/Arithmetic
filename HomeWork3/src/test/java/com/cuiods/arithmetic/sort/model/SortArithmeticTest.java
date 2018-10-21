@@ -19,9 +19,11 @@ public class SortArithmeticTest {
     @Test
     public void shellSort1() {
         SortArithmetic arithmetic = new SortArithmetic();
-        long[] nums = RandomUtil.generateNumbers(10);
+        long[] nums = RandomUtil.generateNumbers(200000000);
+        long time1 = System.nanoTime();
         arithmetic.shellSort(nums);
-        for (long num : nums) System.out.println(num + ",");
+        long time2 = System.nanoTime();
+        System.out.println((time2-time1)/1000000.0);
     }
 
     @Test
@@ -35,9 +37,11 @@ public class SortArithmeticTest {
     @Test
     public void quickSort2() {
         SortArithmetic arithmetic = new SortArithmetic();
-        long[] nums = RandomUtil.generateNumbers(20);
+        long[] nums = RandomUtil.generateNumbers(1000000000);
+        long time1 = System.nanoTime();
         arithmetic.quickSort(nums,2);
-        for (long num : nums) System.out.println(num + ",");
+        long time2 = System.nanoTime();
+        System.out.println((time2-time1)/1000000.0);
     }
 
     @Test
@@ -59,9 +63,11 @@ public class SortArithmeticTest {
     @Test
     public void mergeSort2() {
         SortArithmetic arithmetic = new SortArithmetic();
-        long[] nums = RandomUtil.generateNumbers(20);
-        arithmetic.mergeSort(nums, 2);
-        for (long num : nums) System.out.println(num + ",");
+        long[] nums = RandomUtil.generateNumbers(1000000000);
+        long time1 = System.nanoTime();
+        arithmetic.mergeSort(nums,2);
+        long time2 = System.nanoTime();
+        System.out.println((time2-time1)/1000000.0);
     }
 
     @Test
@@ -83,9 +89,11 @@ public class SortArithmeticTest {
     @Test
     public void radixSort2() {
         SortArithmetic arithmetic = new SortArithmetic();
-        long[] nums = RandomUtil.generateNumbers(20);
-        arithmetic.radixSort(nums, 4);
-        for (long num : nums) System.out.println(num + ",");
+        long[] nums = RandomUtil.generateNumbers(1000000000);
+        long time1 = System.nanoTime();
+        arithmetic.radixSort(nums,8);
+        long time2 = System.nanoTime();
+        System.out.println((time2-time1)/1000000.0);
     }
 
     @Test

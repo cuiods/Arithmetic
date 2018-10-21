@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cuiods.arithmetic.sort.controller.MainController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -46,7 +46,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                              <Button layoutX="1141.0" layoutY="11.0" onAction="#startQuickTest" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -66,7 +66,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </CheckBox>
-                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                              <Button onAction="#exportQuickToExcel" layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -145,7 +145,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                              <Button onAction="#startMergeTest" layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -165,7 +165,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </CheckBox>
-                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                              <Button onAction="#exportMergeToExcel" layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -234,12 +234,12 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                              <Button onAction="#startRadixTest" layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                              <Button onAction="#exportRadixToExcel" layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -296,7 +296,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Button layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
+                              <Button onAction="#startSortTest" layoutX="1141.0" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="99.0" text="开始实验">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -321,7 +321,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </CheckBox>
-                              <Button layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
+                              <Button onAction="#exportSortToExcel" layoutX="1247.0" layoutY="12.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="导出EXCEL">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -337,7 +337,7 @@
                      <center>
                         <AnchorPane prefHeight="677.0" prefWidth="829.0" BorderPane.alignment="CENTER">
                            <children>
-                              <LineChart fx:id="lineChart12" prefHeight="320.0" prefWidth="750.0">
+                              <LineChart fx:id="sortLineChart" prefHeight="320.0" prefWidth="750.0">
                                  <xAxis>
                                     <CategoryAxis side="BOTTOM" />
                                  </xAxis>
@@ -345,7 +345,7 @@
                                     <NumberAxis side="LEFT" />
                                  </yAxis>
                               </LineChart>
-                              <BarChart fx:id="barChart12" layoutX="-1.0" layoutY="348.0" prefHeight="320.0" prefWidth="750.0">
+                              <BarChart fx:id="sortBarChart" layoutX="-1.0" layoutY="348.0" prefHeight="320.0" prefWidth="750.0">
                                  <xAxis>
                                     <CategoryAxis side="BOTTOM" />
                                  </xAxis>

@@ -6,7 +6,7 @@ public class ImageModel {
 
     private SeamCarving seamCarving = new SeamCarving();
 
-    public BufferedImage seamImage(BufferedImage image) {
+    public BufferedImage seamImage(BufferedImage image, EnergyMethod method) {
         int[][] data = new int[image.getHeight()][image.getWidth()];
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
@@ -14,7 +14,7 @@ public class ImageModel {
             }
         }
         seamCarving.setPicture(data);
-        int[][] result = seamCarving.seamCarving();
+        int[][] result = seamCarving.seamCarving(method);
         BufferedImage imageResult = new BufferedImage(result[0].length, result.length, BufferedImage.TYPE_INT_RGB);
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[0].length; j++) {

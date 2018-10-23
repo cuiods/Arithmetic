@@ -1,5 +1,6 @@
 package com.cuiods.arithmetic.seam.controller;
 
+import com.cuiods.arithmetic.seam.model.EnergyMethod;
 import com.cuiods.arithmetic.seam.model.ImageModel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -30,6 +31,7 @@ public class Controller implements Initializable {
 
     @FXML private ImageView originImage;
     @FXML private ImageView seamImage;
+    @FXML private ImageView seamImageCompare;
     @FXML private Label showSelectPath;
     @FXML private Label showOutputPath;
 
@@ -75,9 +77,13 @@ public class Controller implements Initializable {
         }
         try {
             BufferedImage image = ImageIO.read(inputFile);
-            BufferedImage result = model.seamImage(image);
+            BufferedImage result = model.seamImage(image, EnergyMethod.ENERGY);
             seamImage.setImage(SwingFXUtils.toFXImage(result,null));
             ImageIO.write(result,"jpg",outPutFile);
+            BufferedImage result1 = model.seamImage(image, EnergyMethod.ENERGY2);
+            seamImageCompare.setImage(SwingFXUtils.toFXImage(result1,null));
+            File file = new File(outPutFile.getPath()+".compare");
+            ImageIO.write(result,"jpg",file);
         } catch (IOException e) {
             e.printStackTrace();
         }

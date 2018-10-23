@@ -62,7 +62,7 @@
                     <!-- MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>com.cuiods.arithmetic.sort.main.Main</mainClass>
+                            <mainClass>com.cuiods.arithmetic.seam.main.Main</mainClass>
                         </manifest>
                     </archive>
 

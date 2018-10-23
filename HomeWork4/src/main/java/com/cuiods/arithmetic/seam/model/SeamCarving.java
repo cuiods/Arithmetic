@@ -14,21 +14,21 @@ public class SeamCarving {
         setPicture(picture);
     }
 
-    public int[][] seamCarving() {
-        return seamCarving(width/2, height/2);
+    public int[][] seamCarving(EnergyMethod method) {
+        return seamCarving(width/2, height/2, method);
     }
 
-    public int[][] seamCarving(int hNum, int vNum) {
+    public int[][] seamCarving(int hNum, int vNum, EnergyMethod method) {
         if (picture.length == 0) return picture;
         if (picture.length < 2 && picture[0].length < 2) return picture;
         if (hNum < picture[0].length) {
             for (int i = 0; i < hNum; i++) {
-                horizonSeamCarving();
+                horizonSeamCarving(method);
             }
         }
         if (vNum < picture.length) {
             for (int i = 0; i < vNum; i++) {
-                verticalSeamCarving();
+                verticalSeamCarving(method);
             }
         }
         return getPicture();
@@ -54,8 +54,8 @@ public class SeamCarving {
         width = picture[0].length;
     }
 
-    private void horizonSeamCarving() {
-        calculateEnergy();
+    private void horizonSeamCarving(EnergyMethod method) {
+        calculateEnergy(method);
         int[][] globalTags = new int[height][width];
         tags = new int[height];
         int[] lastSeam = new int[width];
@@ -117,8 +117,8 @@ public class SeamCarving {
         width = width-1;
     }
 
-    private void verticalSeamCarving() {
-        calculateEnergy();
+    private void verticalSeamCarving(EnergyMethod method) {
+        calculateEnergy(method);
         int[][] globalTags = new int[height][width];
         tags = new int[width];
         int[] lastSeam = new int[height];
@@ -181,11 +181,14 @@ public class SeamCarving {
         height = height-1;
     }
 
-    private void calculateEnergy() {
+    private void calculateEnergy(EnergyMethod method) {
         energy = new int[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                energy[i][j] = energy(i,j);
+                switch (method) {
+                    case ENERGY2: energy[i][j] = energy(i,j); break;
+                    default: energy[i][j] = energy2(i,j);
+                }
             }
         }
     }
@@ -197,5 +200,20 @@ public class SeamCarving {
         int downRGB = picture[x][(y-1+ width)% width];
         return (int)(Math.pow(leftRGB&0xff-rightRGB&0xff,2)+Math.pow((leftRGB>>8)&0xff-(rightRGB>>8)&0xff,2)+Math.pow((leftRGB>>16)&0xff-(rightRGB>>16)&0xff,2)
                 +Math.pow(upperRGB&0xff-downRGB&0xff,2)+Math.pow((upperRGB>>8)&0xff-(downRGB>>8)&0xff,2)+Math.pow((upperRGB>>16)&0xff-(downRGB>>16)&0xff,2));
+    }
+
+    private int energy2(int x, int y) {
+        int leftRGB = picture[(x-1+ height)% height][y];
+        int rightRGB = picture[(x+1)% height][y];
+        int upperRGB = picture[x][(y+1)% width];
+        int downRGB = picture[x][(y-1+ width)% width];
+        int leftUpper = picture[(x-1+ height)% height][(y-1+ width)% width];
+        int rightDown = picture[(x+1)% height][(y+1)% width];
+        int leftDown = picture[(x-1+ height)% height][(y+1)% width];
+        int rightUpper = picture[(x+1)% height][(y-1+ width)% width];
+        return (int)(Math.pow(leftRGB&0xff-rightRGB&0xff,2)+Math.pow((leftRGB>>8)&0xff-(rightRGB>>8)&0xff,2)+Math.pow((leftRGB>>16)&0xff-(rightRGB>>16)&0xff,2)
+                +Math.pow(upperRGB&0xff-downRGB&0xff,2)+Math.pow((upperRGB>>8)&0xff-(downRGB>>8)&0xff,2)+Math.pow((upperRGB>>16)&0xff-(downRGB>>16)&0xff,2)
+                +Math.pow(leftUpper&0xff-rightDown&0xff,2)+Math.pow((leftUpper>>8)&0xff-(rightDown>>8)&0xff,2)+Math.pow((leftUpper>>16)&0xff-(rightDown>>16)&0xff,2)
+                +Math.pow(leftDown&0xff-rightUpper&0xff,2)+Math.pow((leftDown>>8)&0xff-(rightUpper>>8)&0xff,2)+Math.pow((leftDown>>16)&0xff-(rightUpper>>16)&0xff,2));
     }
 }

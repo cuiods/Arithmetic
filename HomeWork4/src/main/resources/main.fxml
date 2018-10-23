@@ -8,29 +8,30 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cuiods.arithmetic.seam.controller.Controller">
    <children>
-      <ImageView fx:id="originImage" fitHeight="768.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="originImage" fitHeight="692.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="seamImage" fitHeight="332.0" fitWidth="465.0" layoutX="900.0" pickOnBounds="true" preserveRatio="true" />
-      <Button onAction="#selectPath" layoutX="942.0" layoutY="397.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="90.0" text="选择图片">
+      <Button layoutX="26.0" layoutY="711.0" mnemonicParsing="false" onAction="#selectPath" prefHeight="43.0" prefWidth="90.0" text="选择图片">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Label fx:id="showSelectPath" layoutX="1053.0" layoutY="397.0" prefHeight="43.0" prefWidth="286.0" text="请选择图片路径">
+      <Label fx:id="showSelectPath" layoutX="130.0" layoutY="711.0" prefHeight="43.0" prefWidth="317.0" text="请选择图片路径">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button onAction="#selectOutputPath" layoutX="942.0" layoutY="473.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="90.0" text="输出路径">
+      <Button layoutX="470.0" layoutY="712.0" mnemonicParsing="false" onAction="#selectOutputPath" prefHeight="43.0" prefWidth="90.0" text="输出路径">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Label fx:id="showOutputPath" layoutX="1052.0" layoutY="473.0" prefHeight="43.0" prefWidth="286.0" text="请选择输出路径">
+      <Label fx:id="showOutputPath" layoutX="580.0" layoutY="712.0" prefHeight="43.0" prefWidth="317.0" text="请选择输出路径">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button onAction="#startSeamCarving" layoutX="1023.0" layoutY="565.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="241.0" text="开始压缩">
+      <Button layoutX="1133.0" layoutY="709.0" mnemonicParsing="false" onAction="#startSeamCarving" prefHeight="48.0" prefWidth="212.0" text="开始压缩">
          <font>
             <Font size="24.0" />
          </font></Button>
+      <ImageView fx:id="seamImageCompare" fitHeight="332.0" fitWidth="465.0" layoutX="900.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cuiods.arithmetic.sequence.controller.Controller">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="最长单调递增子序列">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="115.0" layoutY="126.0" prefHeight="46.0" prefWidth="115.0" text="请输入序列：">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="inputArea" layoutX="251.0" layoutY="137.0" prefHeight="132.0" prefWidth="401.0" />
+                        <Label layoutX="96.0" layoutY="166.0" prefHeight="46.0" prefWidth="134.0" text="（用逗号隔开）">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="685.0" layoutY="127.0" prefHeight="46.0" prefWidth="84.0" text="随机生成">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="randomNum" layoutX="740.0" layoutY="176.0" prefHeight="35.0" prefWidth="152.0" />
+                        <Label layoutX="903.0" layoutY="171.0" prefHeight="46.0" prefWidth="48.0" text="数字">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button onAction="#generateNum" layoutX="727.0" layoutY="234.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="191.0" text="生成" />
+                        <TextArea fx:id="resultArea" editable="false" layoutX="251.0" layoutY="315.0" prefHeight="132.0" prefWidth="401.0" />
+                        <Label layoutX="115.0" layoutY="315.0" prefHeight="46.0" prefWidth="115.0" text="计算结果：">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="685.0" layoutY="315.0" prefHeight="46.0" prefWidth="84.0" text="用时：">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="useTime" editable="false" layoutX="740.0" layoutY="371.0" prefHeight="35.0" prefWidth="152.0" />
+                        <Label layoutX="903.0" layoutY="366.0" prefHeight="46.0" prefWidth="48.0" text="ms">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button onAction="#reset" layoutX="200.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="191.0" text="重置" />
+                        <Button onAction="#computeSequence" layoutX="645.0" layoutY="560.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="191.0" text="开始计算" />
+                        <ChoiceBox fx:id="method" layoutX="460.0" layoutY="561.0" prefHeight="33.0" prefWidth="155.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="对比实验">
+            <content>
+              <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <top>
+                        <AnchorPane prefHeight="80.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="26.0" layoutY="24.0" prefHeight="32.0" prefWidth="88.0" text="最大N值：">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="maxNum" layoutX="114.0" layoutY="24.0" prefHeight="33.0" prefWidth="133.0" />
+                              <Label layoutX="291.0" layoutY="24.0" prefHeight="32.0" prefWidth="96.0" text="每次递增：">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="stepNum" layoutX="394.0" layoutY="24.0" prefHeight="33.0" prefWidth="133.0" />
+                              <Button onAction="#startReport" layoutX="855.0" layoutY="21.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="126.0" text="开始实验">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <left>
+                        <TableView fx:id="tableView" prefHeight="652.0" prefWidth="320.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="numCol" text="N" />
+                            <TableColumn fx:id="dpCol" prefWidth="120.0" text="动态规划" />
+                              <TableColumn fx:id="greedyCol" prefWidth="120.0" text="贪心算法" />
+                          </columns>
+                        </TableView>
+                     </left>
+                     <center>
+                        <LineChart fx:id="lineChart" BorderPane.alignment="CENTER">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </center></BorderPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

@@ -16,7 +16,7 @@ public class IncreasingSequence {
             maxLen[i] = 1;
             tags[i] = -1;
             for (int j = 0; j < i; j++) {
-                if (numbers[j] <= numbers[i]) {
+                if (numbers[j] < numbers[i]) {
                     int length = maxLen[j]+1;
                     if (length > maxLen[i]) {
                         maxLen[i] = length;
@@ -46,7 +46,7 @@ public class IncreasingSequence {
         tags[0] = 1;
         int maxLen = 1;
         for (int i = 1; i < numbers.length; i++) {
-            if (numbers[i] >= numbers[minTailIndex[maxLen-1]]) {
+            if (numbers[i] > numbers[minTailIndex[maxLen-1]]) {
                 minTailIndex[maxLen++] = i;
                 tags[i] = maxLen;
             }
@@ -59,7 +59,7 @@ public class IncreasingSequence {
         int[] result = new int[maxLen];
         int currentMax = Integer.MAX_VALUE;
         for (int i = maxLen-1, tempIndex = minTailIndex[maxLen-1]; i >= 0 && tempIndex>=0; tempIndex--) {
-            if (numbers[tempIndex] <= currentMax && tags[tempIndex] == i+1) {
+            if (numbers[tempIndex] < currentMax && tags[tempIndex] == i+1) {
                 result[i--] = numbers[tempIndex];
                 currentMax = numbers[tempIndex];
             }
@@ -70,7 +70,9 @@ public class IncreasingSequence {
     private int binarySearch(int[] numbers,int[] tailIndex, int start, int end, int num) {
         if (start == end) return start;
         int middle = (start+end)/2;
-        if (numbers[tailIndex[middle]] > num)
+        if (numbers[tailIndex[middle]] == num)
+            return middle;
+        else if (numbers[tailIndex[middle]] > num)
             return binarySearch(numbers, tailIndex, start, middle, num);
         else
             return binarySearch(numbers, tailIndex, middle+1, end, num);

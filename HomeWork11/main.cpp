@@ -1,6 +1,7 @@
 #include <omp.h>
 #include <vector>
 #include <iostream>
+#include "time.h"
 using namespace std;
 
 vector<long> merge(const vector<long>& left, const vector<long>& right) {
@@ -31,7 +32,23 @@ vector<long> merge(const vector<long>& left, const vector<long>& right) {
     return result;
 }
 
-vector<long> mergeSort(vector<long> &vec, int threads) {
+unsigned int partition(vector<long>& A, unsigned int p,unsigned int q) {
+    long x= A[p];
+    unsigned int i=p;
+    unsigned int j;
+
+    for(j = p+1; j < q; j++) {
+        if(A[j] <= x) {
+            i = i+1;
+            swap(A[i],A[j]);
+        }
+    }
+
+    swap(A[i],A[p]);
+    return i;
+}
+
+vector<long> parallelMergeSort(vector<long> &vec, int threads) {
     // Termination condition: List is completely sorted if it
     // only contains a single element.
     if(vec.size() == 1) {
@@ -49,28 +66,46 @@ vector<long> mergeSort(vector<long> &vec, int threads) {
         #pragma omp parallel sections
         {
             #pragma omp section
-            {
-                left = mergeSort(left, threads / 2);
-            }
+            left = parallelMergeSort(left, threads / 2);
             #pragma omp section
-            {
-                right = mergeSort(right, threads - threads / 2);
-            }
+            right = parallelMergeSort(right, threads - threads / 2);
         }
     } else {
-        left = mergeSort(left, 1);
-        right = mergeSort(right, 1);
+        left = parallelMergeSort(left, 1);
+        right = parallelMergeSort(right, 1);
     }
 
     return merge(left, right);
 }
 
+void parallelQuickSort(vector<long> &vec, unsigned int start, unsigned int end, int threads) {
+    unsigned int r = 0;
+    if(start < end) {
+        r = partition(vec, start, end);
+        if (threads > 1) {
+            #pragma omp parallel sections
+            {
+                #pragma omp section
+                parallelQuickSort(vec, start, r,  threads / 2);
+                #pragma omp section
+                parallelQuickSort(vec, r+1, end,  threads - threads / 2);
+            }
+        } else {
+            parallelQuickSort(vec, start, r, 1);
+            parallelQuickSort(vec, r+1, end, 1);
+        }
+    }
+}
+
 int main() {
-    unsigned int num = 10000000;
+    unsigned int num = 100000000;
     vector<long> v(num);
     for (long i=0; i<num; ++i)
         v[i] = static_cast<long>((i * i) % num);
-    v = mergeSort(v, 12);
-    for (long i=0; i<num; ++i)
-        cout << v[i] << "\n";
+    clock_t startTime = clock();
+    parallelQuickSort(v,0 ,num, 12);
+    clock_t endTime = clock();
+    cout << "Run time:" << (endTime-startTime)*1.0/CLOCKS_PER_SEC*1000 << "ms" << endl;
+//    for (long i=0; i<num; ++i)
+//        cout << v[i] << "\n";
 }

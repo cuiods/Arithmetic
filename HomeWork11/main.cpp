@@ -1,7 +1,9 @@
 #include <omp.h>
 #include <vector>
 #include <iostream>
+#include <random>
 #include "time.h"
+#include <chrono>
 using namespace std;
 
 vector<long> merge(const vector<long>& left, const vector<long>& right) {
@@ -18,7 +20,6 @@ vector<long> merge(const vector<long>& left, const vector<long>& right) {
         }
     }
 
-    // Push the remaining data from both vectors onto the resultant
     while(left_it < left.size()) {
         result.push_back(left[left_it]);
         left_it++;
@@ -49,19 +50,15 @@ unsigned int partition(vector<long>& A, unsigned int p,unsigned int q) {
 }
 
 vector<long> parallelMergeSort(vector<long> &vec, int threads) {
-    // Termination condition: List is completely sorted if it
-    // only contains a single element.
     if(vec.size() == 1) {
         return vec;
     }
 
-    // Determine the location of the middle element in the vector
     auto middle = vec.begin() + (vec.size() / 2);
 
     vector<long> left(vec.begin(), middle);
     vector<long> right(middle, vec.end());
 
-    // Perform a merge sort on the two smaller vectors
     if (threads > 1) {
         omp_set_nested(1);
         #pragma omp parallel sections
@@ -104,14 +101,16 @@ void parallelQuickSort(vector<long> &vec, int threads) {
 }
 
 int main() {
-    unsigned int num = 1000000;
+    unsigned int num = 10000000;
     vector<long> v(num);
-    for (long i=0; i<num; ++i)
-        v[i] = static_cast<long>((i * i) % num);
-    clock_t startTime = clock();
-    parallelMergeSort(v,1);
-    clock_t endTime = clock();
-//    for (long i=0; i<num; ++i)
-//        cout << v[i] << "\n";
-    cout << "Run time:" << (endTime-startTime)*1.0/CLOCKS_PER_SEC*1000 << "ms" << endl;
+    default_random_engine e(static_cast<unsigned int>(clock()));
+    int threads[6] = {1, 2, 4, 6, 8, 12};
+    for (int thread : threads) {
+        for (long i=0; i<num; ++i)
+            v[i] = static_cast<long>(e());
+        auto startTime = std::chrono::high_resolution_clock::now();
+        parallelQuickSort(v, thread);
+        auto endTime = std::chrono::high_resolution_clock::now();
+        cout << "Thread num: " << thread << ", Run time:" << (endTime-startTime).count()*1.0/1000000 << "ms" << endl;
+    }
 }

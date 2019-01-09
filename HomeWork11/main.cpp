@@ -63,6 +63,7 @@ vector<long> parallelMergeSort(vector<long> &vec, int threads) {
 
     // Perform a merge sort on the two smaller vectors
     if (threads > 1) {
+        omp_set_nested(1);
         #pragma omp parallel sections
         {
             #pragma omp section
@@ -78,34 +79,39 @@ vector<long> parallelMergeSort(vector<long> &vec, int threads) {
     return merge(left, right);
 }
 
-void parallelQuickSort(vector<long> &vec, unsigned int start, unsigned int end, int threads) {
+void parallelQuickSortOpt(vector<long> &vec, unsigned int start, unsigned int end, int threads) {
     unsigned int r = 0;
     if(start < end) {
         r = partition(vec, start, end);
         if (threads > 1) {
+            omp_set_nested(1);
             #pragma omp parallel sections
             {
                 #pragma omp section
-                parallelQuickSort(vec, start, r,  threads / 2);
+                parallelQuickSortOpt(vec, start, r,  threads / 2);
                 #pragma omp section
-                parallelQuickSort(vec, r+1, end,  threads - threads / 2);
+                parallelQuickSortOpt(vec, r+1, end,  threads - threads / 2);
             }
         } else {
-            parallelQuickSort(vec, start, r, 1);
-            parallelQuickSort(vec, r+1, end, 1);
+            parallelQuickSortOpt(vec, start, r, 1);
+            parallelQuickSortOpt(vec, r+1, end, 1);
         }
     }
 }
 
+void parallelQuickSort(vector<long> &vec, int threads) {
+    parallelQuickSortOpt(vec, 0, static_cast<unsigned int>(vec.size()), threads);
+}
+
 int main() {
-    unsigned int num = 100000000;
+    unsigned int num = 1000000;
     vector<long> v(num);
     for (long i=0; i<num; ++i)
         v[i] = static_cast<long>((i * i) % num);
     clock_t startTime = clock();
-    parallelQuickSort(v,0 ,num, 12);
+    parallelMergeSort(v,1);
     clock_t endTime = clock();
-    cout << "Run time:" << (endTime-startTime)*1.0/CLOCKS_PER_SEC*1000 << "ms" << endl;
 //    for (long i=0; i<num; ++i)
 //        cout << v[i] << "\n";
+    cout << "Run time:" << (endTime-startTime)*1.0/CLOCKS_PER_SEC*1000 << "ms" << endl;
 }

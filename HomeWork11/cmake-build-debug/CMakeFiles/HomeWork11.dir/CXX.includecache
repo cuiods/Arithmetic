@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Project/Arithmetic/HomeWork11/main.cpp
+omp.h
+-
+vector
+-
+iostream
+-
+random
+-
+time.h
+D:/Project/Arithmetic/HomeWork11/time.h
+chrono
+-
+
